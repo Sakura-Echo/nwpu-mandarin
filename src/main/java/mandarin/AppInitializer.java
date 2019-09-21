@@ -1,14 +1,15 @@
 package mandarin;
 
-import org.hibernate.cfg.Configuration;
-import org.hibernate.tool.hbm2ddl.SchemaUpdate;
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration;
 
@@ -28,5 +29,10 @@ public class AppInitializer implements WebApplicationInitializer {
         ServletRegistration.Dynamic registration = servletCtx.addServlet("DispatcherServlet", servlet);
         registration.setLoadOnStartup(1);
         registration.addMapping("/");
+        try {
+            Class.forName("mandarin.utils.CryptoUtils");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
