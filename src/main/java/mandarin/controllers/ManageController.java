@@ -29,7 +29,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequestMapping("/manage")
+@RequestMapping("/librarian")
 @Controller
 public class ManageController {
 
@@ -47,7 +47,7 @@ public class ManageController {
 
     @GetMapping({"/", ""})
     public String index() {
-        return "manage";
+        return "librarian/add_book";
     }
 
     //登录
@@ -55,17 +55,17 @@ public class ManageController {
     public String loginPage(HttpServletRequest request) throws RuntimeException {
         HttpSession session = request.getSession(false);
         if (session == null) {
-            return "manage/login";
+            return "/librarian/login";
         }
         User user = userRepository.findById((Integer) session.getAttribute("userId")).orElse(null);
         if (user == null) {
             session.invalidate();
-            return "redirect:/manage/login";
+            return "redirect:/librarian/login";
         }
         if (user.getType() != UserType.Librarian) {
             throw new ForbiddenException();
         } else {
-            return "redirect:/manage";
+            return "redirect:/librarian/index";
         }
     }
 

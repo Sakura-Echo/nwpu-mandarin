@@ -38,7 +38,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
                         response.sendRedirect("/login");
                         break;
                     case Librarian:
-                        response.sendRedirect("/manage/login");
+                        response.sendRedirect("/librarian/login");
                         break;
                 }
                 return false;
